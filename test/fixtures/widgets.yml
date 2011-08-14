@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  system_name: MyString
+  page_id: 1
+  placeholder: MyString
+  position: 1
+  registered_widget_id: 1
+
+two:
+  system_name: MyString
+  page_id: 1
+  placeholder: MyString
+  position: 1
+  registered_widget_id: 1

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  system_name: MyString
+  domain: MyString
+  path_prefix: MyString
+  language_id: 1
+  theme_id: 1
+
+two:
+  system_name: MyString
+  domain: MyString
+  path_prefix: MyString
+  language_id: 1
+  theme_id: 1

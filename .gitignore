@@ -1,0 +1,11 @@
+.bundle
+.idea
+db/*.sqlite3
+log/*.log
+tmp/
+.sass-cache/
+config/initializers/secret_token.rb
+db/schema.rb
+*~
+*.swp
+*.swo
