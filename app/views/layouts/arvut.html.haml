@@ -1,10 +1,13 @@
 !!! 5
 %html
   %head
-    %title Megacms
+    %title
+      = yield :meta_title
     = stylesheet_link_tag "application"
     = javascript_include_tag "application"
     = csrf_meta_tags
+    %meta{'name' => 'description', :content => yield(:meta_description)}/
+    = yield :header
   %body
     = yield
     %div.content1= yield :content1

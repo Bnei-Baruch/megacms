@@ -5,6 +5,9 @@ class Site < ActiveRecord::Base
   has_many :pages
   belongs_to :default_page, :class_name => 'Page', :foreign_key => :default_page_id
 
+  validates :theme_id, :presence => true
+  validates :default_page_id, :presence => true
+
 
   # for rails admin
   def name

@@ -7,7 +7,7 @@ class Page < ActiveRecord::Base
       include_fields :permalink, :title, :description
       field :image do
         pretty_value do
-           "<img src=\"#{value.url(:thumb)}\" style=\"max-height:80px;\" />".html_safe
+           "<img src='#{value.url(:thumb)}' style='max-height:80px;' />".html_safe
         end
       end
     end

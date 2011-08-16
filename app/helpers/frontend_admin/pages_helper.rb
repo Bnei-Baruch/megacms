@@ -1,0 +1,2 @@
+module FrontendAdmin::PagesHelper
+end
