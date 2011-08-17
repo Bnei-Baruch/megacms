@@ -68,6 +68,8 @@ GEM
     erubis (2.7.0)
     execjs (1.2.4)
       multi_json (~> 1.0)
+    formtastic (2.0.0.rc4)
+      rails (~> 3.0)
     gem_plugin (0.2.3)
     haml (3.1.2)
     hike (1.2.0)
@@ -157,6 +159,7 @@ DEPENDENCIES
   ckeditor (~> 3.6.0)
   coffee-rails (~> 3.1.0.rc)
   devise
+  formtastic (= 2.0.0.rc4)
   haml
   jquery-rails
   mongrel (>= 1.2.0.pre2)

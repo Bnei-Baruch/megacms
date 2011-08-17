@@ -13,7 +13,7 @@ gem "paperclip"
 gem "acts_as_tree"
 gem "cells"
 gem "haml"
-
+gem 'formtastic', '2.0.0.rc4'
 
 
 # Gems used only for assets and not required
