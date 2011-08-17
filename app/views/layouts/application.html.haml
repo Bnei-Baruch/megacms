@@ -1,0 +1,14 @@
+!!! 5
+%html
+  %head
+    %title
+      - if content_for?(:meta_title)
+        = yield :meta_title
+    = stylesheet_link_tag "application"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+    - if content_for?(:meta_description)
+      %meta{'name' => 'description', :content => yield(:meta_description)}/
+    = yield :header
+  %body
+    = content_for?(:theme) ? yield(:theme) : yield

@@ -1,14 +1,5 @@
-!!! 5
-%html
-  %head
-    %title
-      = yield :meta_title
-    = stylesheet_link_tag "application"
-    = javascript_include_tag "application"
-    = csrf_meta_tags
-    %meta{'name' => 'description', :content => yield(:meta_description)}/
-    = yield :header
-  %body
-    = yield
-    %div.content1= yield :content1
-    %div.content2= yield :content2
+- content_for :theme do
+  = yield
+  %div.content1= yield :content1
+  %div.content2= yield :content2
+= render :template => 'layouts/application'

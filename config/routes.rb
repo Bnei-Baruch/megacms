@@ -8,7 +8,7 @@ end
 
 Megacms::Application.routes.draw do
   
-  devise_for :users
+  devise_for :users, :path_names => { :sign_in => 'login', :sign_out => 'logout', :password => 'secret', :confirmation => 'verification', :unlock => 'unblock', :registration => 'register', :sign_up => 'cmon_let_me_in' }
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
   constraints(CheckDomain) do
@@ -22,6 +22,7 @@ Megacms::Application.routes.draw do
   end
 
   resources :pages
+  root :to => "pages#show"
 
 
   # The priority is based upon order of creation:
