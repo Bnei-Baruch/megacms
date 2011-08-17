@@ -1,0 +1,2 @@
+module FrontendAdmin::AdminBarHelper
+end

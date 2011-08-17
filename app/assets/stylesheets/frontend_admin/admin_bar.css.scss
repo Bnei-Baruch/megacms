@@ -1,0 +1,92 @@
+// Place all the styles related to the FrontendAdmin::AdminBar controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+body.admin{
+    padding-top: 35px;
+}
+.clear {
+    clear: both;
+}
+$to: #999999;
+
+@mixin box-gradient($from: #444444, $to: #999999) {
+  background-color: $from;
+  background-image: -webkit-gradient(linear, left top, left bottom, from($from), to($to)); /* Saf4+, Chrome */
+  background-image: -webkit-linear-gradient(top, $from, $to); /* Chrome 10+, Saf5.1+ */
+  background-image:    -moz-linear-gradient(top, $from, $to); /* FF3.6 */
+  background-image:     -ms-linear-gradient(top, $from, $to); /* IE10 */
+  background-image:      -o-linear-gradient(top, $from, $to); /* Opera 11.10+ */
+  background-image:         linear-gradient(top, $from, $to);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='$from', EndColorStr='$to'); /* IE6–IE9 */
+}
+#admin-bar {
+    height: 35px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    @include box-gradient;
+    box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.25) inset, 0 1px 1px rgba(255, 255, 255, 0.3);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+    #user-navigation {
+        float: right;
+        ul {
+            list-style-type: none;
+            li {
+                padding: 5px 10px;
+                float: left;
+            }
+        }
+    }
+    #pages-navigation {
+        float: right;
+        margin-right: 100px;
+        ul {
+            list-style-type: none;
+            li {
+                padding: 5px 10px;
+                float: left;
+            }
+        }
+    }
+    #widgets-navigation {
+        float: right;
+        margin-right: 100px;
+        ul {
+            list-style-type: none;
+            li {
+                padding: 5px 10px;
+                float: left;
+            }
+        }
+        .show_widgets {
+            padding-left: 20px;
+            background: image_url('/assets/rails_admin/theme/activo/images/icons/see-more.png') no-repeat 0 2px;
+        }
+        .opened {
+            background: image_url('/assets/rails_admin/theme/activo/images/icons/see-less.png') no-repeat 0 2px;
+        }
+    }
+}
+.wat-cf{
+    display: block;
+    &:after {
+        clear: both;
+        content: ".";
+        display: block;
+        height: 0;
+        visibility: hidden;
+    }
+}
+#widgets-container {
+    display: none;
+    padding: 0 10px;
+    border-bottom: 1px solid $to;
+    box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.25) inset, 0 1px 1px rgba(255, 255, 255, 0.3);
+    ul {
+        list-style-type: none;
+        li {
+            padding: 5px 10px;
+            float: left;
+        }
+    }
+}
