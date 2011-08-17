@@ -22,6 +22,9 @@ Megacms::Application.routes.draw do
   end
 
   resources :pages
+  namespace :frontend_admin do
+    resources :admin_bar
+  end
   root :to => "pages#show"
 
 
