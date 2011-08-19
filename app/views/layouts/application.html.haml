@@ -11,5 +11,6 @@
       %meta{'name' => 'description', :content => yield(:meta_description)}/
     = yield :header
   %body
-    = content_for?(:theme) ? yield(:theme) : yield
-    = yield :admin_bar
+    #body
+      = content_for?(:theme) ? yield(:theme) : yield
+      = yield :admin_bar

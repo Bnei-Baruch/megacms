@@ -1,0 +1,68 @@
+function toggle_view() {
+}
+
+function toggle_widgets() {
+    var is_opened = $('.show_widgets').toggleClass('opened').hasClass('opened');
+    var height = $('#widgets-container').height();
+    var wc_shift = is_opened ? -height : 40;
+    var b_shift = is_opened ? height + 35 : 35;
+    $('#widgets-container').stop(true, true).animate({
+        bottom: wc_shift
+    }, 500);
+    $('.admin_wrap').stop(true, true).animate({
+        paddingTop: b_shift
+    }, 500)
+
+}
+
+function setup_admin_bar(page_id, create_url, sort_url) {
+    $('body').addClass('admin_wrap');
+
+    $(".placeholder_page").each(function() {
+        var w = $(this).width();
+        var h = $(this).height();
+        $(this).width(w - 2);
+        $(this).height(h - 2);
+        $(this).css('border', '1px solid red');
+    });
+    $(".placeholder_theme").each(function() {
+        var w = $(this).width();
+        var h = $(this).height();
+        $(this).width(w - 2);
+        $(this).height(h - 2);
+        $(this).css('border', '1px solid green');
+    });
+
+    var placeholders = $(".placeholder_page, .placeholder_theme");
+    $("#widgets-container ul.draggable li").draggable({
+        cursor: 'crosshair',
+        helper: 'clone',
+        revert: 'invalid',
+        connectToSortable: placeholders
+    });
+    placeholders.sortable({
+        revert: true,
+        activeClass: "ui-state-hover",
+        hoverClass: "ui-state-active",
+        update: function(event, ui) {
+            var dropped_on = $(this).attr("id");
+            var params = 'placeholder=' + dropped_on + '&page=' + page_id + '&' + $(this).sortable('serialize', {attribute: 'data-id'});
+            $(this).submitWithAjax(sort_url, params, function(){
+                $(this).effect("hilight", {}, 3000);
+            });
+            $('body').prepend('<p>update: ' + params + '</p>');
+        },
+        receive: function(event, ui) {
+            var dropped_on = $(this).attr("id");
+            var dropped_id = ui.item.attr('data-id');
+            var params = 'placeholder=' + dropped_on + '&page=' + page_id + '&' + 'id=' + dropped_id.split('_')[1];
+            $(this).submitWithAjax(create_url, params, function(){
+                $(this).effect("hilight", {}, 3000);
+            });
+            $('body').prepend('<p>receive: ' + params + '</p>');
+        }
+    });
+    $('.draggable, .draggable li, .placeholder_page, .placeholder_page li, .placeholder_theme, .placeholder_theme li')
+        .disableSelection();
+}
+

@@ -8,3 +8,13 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require_tree .
+jQuery.ajaxSetup({
+    'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
+});
+jQuery.fn.submitWithAjax = function(action, serial, callback){
+    callback = typeof(callback) != 'undefined' ? callback : null;
+    $.ajaxSetup({async:false});
+    $.post(action, serial, callback, "script");
+    $.ajaxSetup({async:true});
+    return this;
+};
