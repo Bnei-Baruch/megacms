@@ -1,9 +1,6 @@
 // Place all the styles related to the FrontendAdmin::AdminBar controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.admin_wrap {
-    padding-top: 35px;
-}
 .clear {
     clear: both;
 }
@@ -19,61 +16,7 @@ $to: #999999;
   background-image:         linear-gradient(top, $from, $to);
             filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='$from', EndColorStr='$to'); /* IE6–IE9 */
 }
-#admin-bar {
-    position: fixed;
-    top: 0;
-    height: 35px;
-    width: 100%;
-    ul {
-        list-style-type: none;
-        li {
-            padding: 5px 10px;
-            float: left;
-        }
-    }
-    #admin-bar-wrapper {
-        position: absolute;
-        top: 0;
-        height: 35px;
-        width: 100%;
-        @include box-gradient;
-        box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.25) inset, 0 1px 1px rgba(255, 255, 255, 0.3);
-        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
-        #user-navigation {
-            float: right;
-        }
-        #pages-navigation {
-            float: right;
-            margin-right: 100px;
-        }
-        #widgets-navigation {
-            float: right;
-            margin-right: 100px;
-            .show_widgets {
-                padding-left: 20px;
-                background: image_url('/assets/rails_admin/theme/activo/images/icons/see-more.png') no-repeat 0 2px;
-            }
-            .opened {
-                background: image_url('/assets/rails_admin/theme/activo/images/icons/see-less.png') no-repeat 0 2px;
-            }
-        }
-    }
-    #widgets-container {
-        position: absolute;
-        bottom: 40px;
-        width: 100%;
-        padding: 0 10px;
-        box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.25) inset, 0 1px 1px rgba(255, 255, 255, 0.3);
-        ul {
-            list-style-type: none;
-            li {
-                padding: 5px 10px;
-                float: left;
-            }
-        }
-    }
 
-}
 .wat-cf{
     display: block;
     &:after {
@@ -84,7 +27,86 @@ $to: #999999;
         visibility: hidden;
     }
 }
-.placeholder_theme, .placeholder_page{
-    list-style-type: none;
-}
 
+#admin-bar {
+    position: absolute;
+    top: -1000px;
+}
+.admin_wrap {
+    padding-top: 35px;
+    #admin-bar {
+        position: fixed;
+        top: 0;
+        height: 35px;
+        width: 100%;
+        li {
+            padding: 5px 10px;
+            float: left;
+        }
+        #admin-bar-wrapper {
+            position: absolute;
+            top: 0;
+            height: 35px;
+            width: 100%;
+            @include box-gradient;
+            box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.25) inset, 0 1px 1px rgba(255, 255, 255, 0.3);
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+            #user-navigation {
+                float: right;
+            }
+            #pages-navigation {
+                float: right;
+                margin-right: 100px;
+            }
+            #widgets-navigation {
+                float: right;
+                margin-right: 100px;
+                .show_widgets {
+                    padding-left: 20px;
+                    background: image_url('/assets/rails_admin/theme/activo/images/icons/see-more.png') no-repeat 0 2px;
+                }
+                .opened {
+                    background: image_url('/assets/rails_admin/theme/activo/images/icons/see-less.png') no-repeat 0 2px;
+                }
+            }
+        }
+        #widgets-container {
+            position: absolute;
+            bottom: 40px;
+            width: 100%;
+            padding: 0 10px;
+            box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.25) inset, 0 1px 1px rgba(255, 255, 255, 0.3);
+            li {
+                padding: 5px 10px;
+                float: left;
+            }
+        }
+
+    }
+    .placeholder_theme, .placeholder_page{
+        list-style-type: none;
+    }
+    .widget-wrap {
+        padding: 5px;
+        margin: 2px;
+        border: 1px dashed black;
+        position: relative;
+        .management {
+            background: none repeat scroll 0 0 rgba(255, 163, 0, 0.8);
+            border: 1px solid #934900;
+            font-size: 11px;
+            padding: 0 1px;
+            position: absolute;
+            right: 1px;
+            top: 1px;
+            -moz-border-radius: 2px;
+            -webkit-border-radius: 2px;
+            border-radius: 2px;
+            z-index: 10000;
+            a {
+                color: #934900;
+                text-decoration: none;
+            }
+        }
+    }
+}

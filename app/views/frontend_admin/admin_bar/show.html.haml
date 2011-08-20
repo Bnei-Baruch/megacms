@@ -2,7 +2,7 @@
   #widgets-container
     %ul.draggable.wat-cf
       - @widgets.each do |widget|
-        %li(data-id="widget_#{widget.id}")
+        %li(data-id="registered_widget_#{widget.id}")
           = widget.system_name
   #admin-bar-wrapper
     #user-navigation
@@ -35,24 +35,7 @@
         %ul.wat-cf
           %li
             = link_to_function 'Widgets', 'toggle_widgets()', :title => "Show widgets", :class => :show_widgets
-%br Site:
-= @site.inspect
-%br Page:
-= @page.inspect
-%br User:
-= current_user.inspect
-
-%ul.placeholder_page(id="ph_1" style="width:100px; min-height: 100px; padding: 0 5px; float: left; margin-right: 20px;")
-  %li.ui-state-default(data-id='widget_10') page placeholder
-  %li.ui-state-default(data-id='widget_11') test1
-  %li.ui-state-default(data-id='widget_12') test2
-  %li.ui-state-default(data-id='widget_13') test3
-  %li.ui-state-default(data-id='widget_14') test4
-
-%ul.placeholder_theme(id="th_1" style="width:100px; min-height: 100px; padding: 0 5px; float: left; margin-right: 20px;")
-  %li.ui-state-default(data-id='widget_15') theme placeholder
-
 :javascript
   $(function() {
-    setup_admin_bar("#{@page.id}", "#{frontend_admin_widgets_url()}", "#{frontend_admin_widget_url()}");
+    setup_admin_bar("#{@page.id}", "#{frontend_admin_widgets_url}", "#{sort_frontend_admin_widgets_url}");
   });

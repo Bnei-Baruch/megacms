@@ -24,6 +24,9 @@ Megacms::Application.routes.draw do
   resources :pages
   namespace :frontend_admin do
     resources :admin_bar
+    resources :widgets do
+      post :sort, :on => :collection
+    end
   end
   root :to => "pages#show"
 
