@@ -5,7 +5,7 @@ module PagesHelper
       content_for placeholder.to_sym do
         widgets.map do|w|
           content = render_cell w.system_name.to_sym, :display
-          management = "<div class='management'><a href='#edit'>edit</a>&nbsp;<a href='#delete'>delete</a></div>".html_safe
+          management = "<div class=\"management\"><a href=\"#edit\">edit</a>&nbsp;<a href=\"#delete\">delete</a></div>".html_safe
           content_tag :li, management + content, :class => 'widget-wrap', :'data-id' => "widget_#{w.id}"
         end.join.html_safe
       end

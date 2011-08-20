@@ -18,3 +18,8 @@ jQuery.fn.submitWithAjax = function(action, serial, callback){
     $.ajaxSetup({async:true});
     return this;
 };
+if(!Array.prototype.last) {
+    Array.prototype.last = function() {
+        return this[this.length - 1];
+    }
+}

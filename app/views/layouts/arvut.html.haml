@@ -2,15 +2,6 @@
   = yield
   #navigation(style="width:28%; min-height: 100px; padding: 0 1%; float: left;")
     = placeholder(:page, :content1)
-    %ul.placeholder_page(id="ph_1")
-      %li.ui-state-default(data-id='widget_10') page placeholder
-      %li.ui-state-default(data-id='widget_11') test1
-
-      %li.ui-state-default(data-id='widget_13') test3
-      %li.ui-state-default(data-id='widget_14') test4
-
-  %ul.placeholder_theme(id="th_1" style="width:68%; min-height: 100px; padding: 0 1%; float: right;")
-    %li.ui-state-default(data-id='widget_15') theme placeholder
-
+    = placeholder(:page, :content2)
 
 = render :template => 'layouts/application'
