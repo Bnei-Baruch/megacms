@@ -37,5 +37,8 @@
             = link_to_function 'Widgets', 'toggle_widgets()', :title => "Show widgets", :class => :show_widgets
 :javascript
   $(function() {
-    setup_admin_bar("#{@page.id}", "#{frontend_admin_widgets_url}", "#{sort_frontend_admin_widgets_url}");
+    setup_admin_bar("#{@page.id}",
+     "#{frontend_admin_widgets_url}",
+     "#{frontend_admin_widget_url('ReplaceMe')}",
+     "#{sort_frontend_admin_widgets_url}");
   });

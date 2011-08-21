@@ -8,17 +8,33 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require_tree .
+
 jQuery.ajaxSetup({
-    'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
+    'beforeSend': function(xhr) {
+        xhr.setRequestHeader("Accept", "text/javascript")
+    }
 });
-jQuery.fn.submitWithAjax = function(action, serial, callback){
-    callback = typeof(callback) != 'undefined' ? callback : null;
-    $.ajaxSetup({async:false});
-    $.post(action, serial, callback, "script");
-    $.ajaxSetup({async:true});
+jQuery.fn.postWithAjax = function(url, data, success, error) {
+    jQuery.fn.sendWithAjax('post', url, data, success, error);
+};
+jQuery.fn.putWithAjax = function(url, data, success, error) {
+    jQuery.fn.sendWithAjax('put', url, data, success, error);
+}
+jQuery.fn.sendWithAjax = function(method, url, data, success, error) {
+    success = typeof(success) != 'undefined' ? success : null;
+    error = typeof(error) != 'undefined' ? error : null;
+    jQuery.ajax({
+        type: method,
+        url: url,
+        data: data,
+        success: success,
+        error: error,
+        dataType: "script",
+        async: false
+    });
     return this;
 };
-if(!Array.prototype.last) {
+if (!Array.prototype.last) {
     Array.prototype.last = function() {
         return this[this.length - 1];
     }
