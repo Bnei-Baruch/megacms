@@ -7,11 +7,11 @@ class Widget < ActiveRecord::Base
 
   delegate :system_name, :to  =>:registered_widget
 
-
 ###### --- validations ---
 
   validates :registered_widget_id, :presence => true
 
 ###### --- scopes ---
-  scope :by_placeholder, lambda {|placeholder| where('placeholder = ?', placeholder) }
+  scope :by_placeholder, lambda {|placeholder| where('placeholder = ?', placeholder).ordered }
+  scope :ordered, order(:position)
 end

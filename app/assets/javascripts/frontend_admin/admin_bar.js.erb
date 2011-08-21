@@ -15,7 +15,7 @@ function toggle_widgets() {
 
 }
 
-function setup_admin_bar(page_id, create_url, sort_url) {
+function setup_admin_bar(page_id, create_url, update_url, sort_url) {
     $('body').addClass('admin_wrap');
 
     $(".placeholder_page").each(function() {
@@ -38,48 +38,92 @@ function setup_admin_bar(page_id, create_url, sort_url) {
         revert: 'invalid',
         connectToSortable: placeholders
     });
+    var oldPlaceholder, newPlaceholder, itemInMove;
     placeholders.sortable({
-        revert: true,
+        revert: false,
         connectWith: placeholders,
         start: function(event, ui) {
-            placeholders.addClass("ui-state-hover");
+            itemInMove = ui.item;
+            oldPlaceholder = newPlaceholder = itemInMove.parent();
+            console.warn('start ' + itemInMove.attr('data-id') + ' from ' + newPlaceholder.attr('id'));
         },
         stop: function(event, ui) {
-            placeholders.removeClass("ui-state-hover");
+            console.info('Item ' + itemInMove.attr('data-id') + ' from ' + oldPlaceholder.attr('id') + ' to ' + newPlaceholder.attr('id'));
+            var split = itemInMove.attr('data-id').split('_');
+            var params;
+
+            // data-id is
+            //   registered_widget_<id> - from list of registered widgets
+            //   widget_<id>            - from another placeholder
+            if (split.length == 3) {
+                // Create
+                params = 'placeholder=' + newPlaceholder.attr('id') + '&page_id=' + page_id;
+                $(this).postWithAjax(create_url, params + '&reg_id=' + split.last(), function() {
+                    console.log('create ' + params);
+                    $(this).postWithAjax(sort_url, params + '&' + newPlaceholder.sortable('serialize', {attribute: 'data-id'}), function() {
+                        console.log('sort ' + params);
+                        newPlaceholder.effect("highlight", {}, 2000);
+                    });
+                });
+            } else {
+                // Move
+                params = 'placeholder=' + newPlaceholder.attr('id') + '&page_id=' + page_id;
+                if (newPlaceholder == oldPlaceholder) {
+                    // just order was changed
+                    $(this).postWithAjax(sort_url, params + '&' + newPlaceholder.sortable('serialize', {attribute: 'data-id'}),
+                            function() {
+                                console.log('sort - reorder ' + params);
+                                newPlaceholder.effect("highlight", {}, 2000);
+                            },
+                            function() {
+                                oldPlaceholder.sortable('cancel');
+                                oldPlaceholder.effect("highlight", {color: 'red'}, 2000);
+                            }
+                    );
+                } else {
+                    // Move between placeholders
+                    var url = update_url.replace('ReplaceMe', split.last());
+                    console.log('sort - move');
+                    // 1. Change placeholder
+                    $(this).putWithAjax(url, params,
+                            function() {
+                                console.log('sort - sort new');
+                                // 2. Sort new one
+                                $(this).postWithAjax(sort_url, params + '&' + newPlaceholder.sortable('serialize', {attribute: 'data-id'}),
+                                        function() {
+                                            console.log('sort - sort old');
+                                            // 3. Sort old one
+                                            params = 'placeholder=' + oldPlaceholder.attr('id') + '&page_id=' + page_id;
+                                            $(this).postWithAjax(sort_url, params + '&' + oldPlaceholder.sortable('serialize', {attribute: 'data-id'}),
+                                                    function() {
+                                                        newPlaceholder.effect("highlight", {}, 2000);
+                                                    },
+                                                    function() {
+                                                        oldPlaceholder.sortable('cancel');
+                                                        oldPlaceholder.effect("highlight", {color: 'red'}, 2000);
+                                                    }
+                                            );
+                                        },
+                                        function() {
+                                            oldPlaceholder.sortable('cancel');
+                                            oldPlaceholder.effect("highlight", {color: 'red'}, 2000);
+                                        }
+                                );
+                            },
+                            function() {
+                                oldPlaceholder.sortable('cancel');
+                                oldPlaceholder.effect("highlight", {color: 'red'}, 2000);
+                            }
+                    );
+                }
+            }
+
         },
-        over: function(event, ui) {
-            placeholders.addClass("ui-state-active");
-        },
-        out: function(event, ui) {
-            placeholders.removeClass("ui-state-active");
-        },
-        update: function(event, ui) {
-            var dropped_on = $(this).attr("id");
-            var params = 'func=update&placeholder=' + dropped_on + '&page_id=' + page_id + '&' + $(this).sortable('serialize', {attribute: 'data-id'});
-            console.log('update ' + params);
-            $(this).submitWithAjax(sort_url, params, function() {
-                $(this).effect("hilight", {}, 3000);
-            });
-        },
-        remove: function(event, ui) {
-            var dropped_on = $(this).attr("id");
-            var dropped_id = ui.item.attr('data-id');
-            var params = 'func=remove&placeholder=' + dropped_on + '&page_id=' + page_id + '&' + 'id=' + dropped_id.split('_').last();
-            console.log('remove ' + params);
-            $(this).submitWithAjax(create_url, params, function() {
-                $(this).effect("hilight", {}, 3000);
-            });
-        },
-        receive: function(event, ui) {
-            var dropped_on = $(this).attr("id");
-            var dropped_id = ui.item.attr('data-id');
-            var split = dropped_id.split('_');
-            var func = split.length == 2 ? 'new' : 'receive';
-            var params = 'func=' + func + '&placeholder=' + dropped_on + '&page_id=' + page_id + '&' + 'id=' + split.last();
-            console.log('receive ' + params);
-            $(this).submitWithAjax(create_url, params, function() {
-                $(this).effect("hilight", {}, 3000);
-            });
+        change: function(event, ui) {
+            if (ui.sender) {
+                newPlaceholder = ui.placeholder.parent();
+                console.warn('placeholder change to ' + newPlaceholder.attr('id'));
+            }
         }
     });
     $('.draggable, .draggable li, .placeholder_page, .placeholder_page li, .placeholder_theme, .placeholder_theme li')
