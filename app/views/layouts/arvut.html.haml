@@ -1,5 +1,7 @@
 - content_for :theme do
   = yield
-  %div.content1= yield :content1
-  %div.content2= yield :content2
+  #navigation(style="width:28%; min-height: 100px; padding: 0 1%; float: left;")
+    = placeholder(:page, :content1)
+    = placeholder(:page, :content2)
+
 = render :template => 'layouts/application'

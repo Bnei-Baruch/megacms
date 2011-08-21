@@ -1,0 +1,2 @@
+module FrontendAdmin::WidgetsHelper
+end

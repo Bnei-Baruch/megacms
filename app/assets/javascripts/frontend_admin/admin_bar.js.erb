@@ -1,0 +1,88 @@
+function toggle_view() {
+}
+
+function toggle_widgets() {
+    var is_opened = $('.show_widgets').toggleClass('opened').hasClass('opened');
+    var height = $('#widgets-container').height();
+    var wc_shift = is_opened ? -height : 40;
+    var b_shift = is_opened ? height + 35 : 35;
+    $('#widgets-container').stop(true, true).animate({
+        bottom: wc_shift
+    }, 500);
+    $('.admin_wrap').stop(true, true).animate({
+        paddingTop: b_shift
+    }, 500)
+
+}
+
+function setup_admin_bar(page_id, create_url, sort_url) {
+    $('body').addClass('admin_wrap');
+
+    $(".placeholder_page").each(function() {
+        var w = $(this).width();
+        var h = $(this).height();
+        $(this).width(w - 2);
+        $(this).css('border', '1px solid red');
+    });
+    $(".placeholder_theme").each(function() {
+        var w = $(this).width();
+        var h = $(this).height();
+        $(this).width(w - 2);
+        $(this).css('border', '1px solid green');
+    });
+
+    var placeholders = $(".placeholder_page, .placeholder_theme");
+    $("#widgets-container ul.draggable li").draggable({
+        cursor: 'crosshair',
+        helper: 'clone',
+        revert: 'invalid',
+        connectToSortable: placeholders
+    });
+    placeholders.sortable({
+        revert: true,
+        connectWith: placeholders,
+        start: function(event, ui) {
+            placeholders.addClass("ui-state-hover");
+        },
+        stop: function(event, ui) {
+            placeholders.removeClass("ui-state-hover");
+        },
+        over: function(event, ui) {
+            placeholders.addClass("ui-state-active");
+        },
+        out: function(event, ui) {
+            placeholders.removeClass("ui-state-active");
+        },
+        update: function(event, ui) {
+            var dropped_on = $(this).attr("id");
+            var params = 'func=update&placeholder=' + dropped_on + '&page_id=' + page_id + '&' + $(this).sortable('serialize', {attribute: 'data-id'});
+            console.log('update ' + params);
+            $(this).submitWithAjax(sort_url, params, function() {
+                $(this).effect("hilight", {}, 3000);
+            });
+        },
+        remove: function(event, ui) {
+            var dropped_on = $(this).attr("id");
+            var dropped_id = ui.item.attr('data-id');
+            var params = 'func=remove&placeholder=' + dropped_on + '&page_id=' + page_id + '&' + 'id=' + dropped_id.split('_').last();
+            console.log('remove ' + params);
+            $(this).submitWithAjax(create_url, params, function() {
+                $(this).effect("hilight", {}, 3000);
+            });
+        },
+        receive: function(event, ui) {
+            var dropped_on = $(this).attr("id");
+            var dropped_id = ui.item.attr('data-id');
+            var split = dropped_id.split('_');
+            var func = split.length == 2 ? 'new' : 'receive';
+            var params = 'func=' + func + '&placeholder=' + dropped_on + '&page_id=' + page_id + '&' + 'id=' + split.last();
+            console.log('receive ' + params);
+            $(this).submitWithAjax(create_url, params, function() {
+                $(this).effect("hilight", {}, 3000);
+            });
+        }
+    });
+    $('.draggable, .draggable li, .placeholder_page, .placeholder_page li, .placeholder_theme, .placeholder_theme li')
+            .disableSelection();
+}
+

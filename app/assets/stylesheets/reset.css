@@ -63,3 +63,6 @@ a img { border: none; }
 
 /* Remember to define your own focus styles! */
 :focus { outline: 0; }
+
+/* Lists without bullets */
+ul { list-style-type: none; }

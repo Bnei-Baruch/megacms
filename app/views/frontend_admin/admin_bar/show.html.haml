@@ -1,69 +1,41 @@
-#widgets-container
-  %ul.draggable
-    - @widgets.each do |widget|
-      %li
-        = widget.system_name
-  .clear
 #admin-bar
-  #user-navigation
-    %ul.wat-cf
-      - if current_user
-        %li
-          - title = "Edit #{current_user.email}"
-          = link_to image_tag('/assets/rails_admin/theme/activo/images/session/account.png', :alt => title),
-           edit_user_registration_path, :title => title
-        %li
-          = link_to image_tag('/assets/rails_admin/theme/activo/images/session/logout.png', :alt => 'Log out'),
-           destroy_user_session_path, :title =>  'Log out', :method => :delete, :confirm => "Are you sure?"
-      - else
-        %li
-          = link_to 'Log in', new_user_session_path, :title =>  'Log in'
-  - if current_user
-    #pages-navigation
+  #widgets-container
+    %ul.draggable.wat-cf
+      - @widgets.each do |widget|
+        %li(data-id="registered_widget_#{widget.id}")
+          = widget.system_name
+  #admin-bar-wrapper
+    #user-navigation
       %ul.wat-cf
-        %li
-          - title = "Edit #{@page.permalink} (#{@page.title})"
-          = link_to image_tag('/assets/rails_admin/theme/activo/images/icons/edit.png', :alt => title),
-           edit_page_path(@page), :title => title
-        %li
-          - title = "Manage Pages"
-          = link_to image_tag('/assets/rails_admin/theme/activo/images/icons/application_edit.png', :alt => title),
-           edit_page_path(@page), :title => title
-        %li
-          = link_to_function 'Toggle View', 'toggle_view()', :title => 'Toggle View'
-    #widgets-navigation
-      %ul.wat-cf
-        %li
-          = link_to_function 'Widgets', 'toggle_widgets()', :title => "Show widgets", :class => :show_widgets
-%br Site:
-= @site.inspect
-%br Page:
-= @page.inspect
-%br User:
-= current_user.inspect
-
+        - if current_user
+          %li
+            - title = "Edit #{current_user.email}"
+            = link_to image_tag('/assets/rails_admin/theme/activo/images/session/account.png', :alt => title),
+             edit_user_registration_path, :title => title
+          %li
+            = link_to image_tag('/assets/rails_admin/theme/activo/images/session/logout.png', :alt => 'Log out'),
+             destroy_user_session_path, :title =>  'Log out', :method => :delete, :confirm => "Are you sure?"
+        - else
+          %li
+            = link_to 'Log in', new_user_session_path, :title =>  'Log in'
+    - if current_user
+      #pages-navigation
+        %ul.wat-cf
+          %li
+            - title = "Edit #{@page.permalink} (#{@page.title})"
+            = link_to image_tag('/assets/rails_admin/theme/activo/images/icons/edit.png', :alt => title),
+             edit_page_path(@page), :title => title
+          %li
+            - title = "Manage Pages"
+            = link_to image_tag('/assets/rails_admin/theme/activo/images/icons/application_edit.png', :alt => title),
+             edit_page_path(@page), :title => title
+          %li
+            = link_to_function 'Toggle View', 'toggle_view()', :title => 'Toggle View'
+      #widgets-navigation
+        %ul.wat-cf
+          %li
+            = link_to_function 'Widgets', 'toggle_widgets()', :title => "Show widgets", :class => :show_widgets
 :javascript
-  $('body').addClass('admin');
-
-  function toggle_view(){
-  }
-
-  function toggle_widgets()
-  {
-    $('.show_widgets').toggleClass('opened');
-    $('#widgets-container').slideToggle('slow');
-
-  }
-
   $(function() {
-    $( "#draggable" ).draggable();
-    $( "#droppable" ).droppable({
-      drop: function( event, ui ) {
-        $( this )
-          .addClass( "ui-state-highlight" )
-          .find( "p" )
-          .html( "Dropped!" );
-      }
-    });
+    setup_admin_bar("#{@page.id}", "#{frontend_admin_widgets_url}", "#{sort_frontend_admin_widgets_url}");
   });
-
