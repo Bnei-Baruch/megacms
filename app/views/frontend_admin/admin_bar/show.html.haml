@@ -4,10 +4,10 @@
       - @widgets.each do |widget|
         %li(data-id="registered_widget_#{widget.id}")
           = widget.system_name
-  #admin-bar-wrapper
-    #user-navigation
-      %ul.wat-cf
-        - if current_user
+  - if current_user
+    #admin-bar-wrapper
+      #user-navigation
+        %ul.wat-cf
           %li
             - title = "Edit #{current_user.email}"
             = link_to image_tag('/assets/rails_admin/theme/activo/images/session/account.png', :alt => title),
@@ -15,10 +15,6 @@
           %li
             = link_to image_tag('/assets/rails_admin/theme/activo/images/session/logout.png', :alt => 'Log out'),
              destroy_user_session_path, :title =>  'Log out', :method => :delete, :confirm => "Are you sure?"
-        - else
-          %li
-            = link_to 'Log in', new_user_session_path, :title =>  'Log in'
-    - if current_user
       #pages-navigation
         %ul.wat-cf
           %li

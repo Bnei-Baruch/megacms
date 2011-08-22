@@ -15,20 +15,19 @@ function toggle_widgets() {
 
 }
 
+function flash_error(placeholder) {
+    placeholder.sortable('cancel');
+    placeholder.effect("highlight", {color: 'red'}, 2000);
+}
+
 function setup_admin_bar(page_id, create_url, update_url, sort_url) {
     $('body').addClass('admin_wrap');
 
-    $(".placeholder_page").each(function() {
+    $(".placeholder_page, $.placeholder_theme").each(function() {
         var w = $(this).width();
-        var h = $(this).height();
         $(this).width(w - 2);
-        $(this).css('border', '1px solid red');
-    });
-    $(".placeholder_theme").each(function() {
-        var w = $(this).width();
-        var h = $(this).height();
-        $(this).width(w - 2);
-        $(this).css('border', '1px solid green');
+        color = $(this).attr('class') == 'placeholder_page' ? 'red' : 'green';
+        $(this).css('border', '1px solid ' + color);
     });
 
     var placeholders = $(".placeholder_page, .placeholder_theme");
@@ -43,12 +42,19 @@ function setup_admin_bar(page_id, create_url, update_url, sort_url) {
         revert: false,
         connectWith: placeholders,
         start: function(event, ui) {
+            // Start dragging
             itemInMove = ui.item;
             oldPlaceholder = newPlaceholder = itemInMove.parent();
-            console.warn('start ' + itemInMove.attr('data-id') + ' from ' + newPlaceholder.attr('id'));
+        },
+        change: function(event, ui) {
+            // placeholder change
+            if (ui.sender) {
+                newPlaceholder = ui.placeholder.parent();
+                console.warn('placeholder change to ' + newPlaceholder.attr('id'));
+            }
         },
         stop: function(event, ui) {
-            console.info('Item ' + itemInMove.attr('data-id') + ' from ' + oldPlaceholder.attr('id') + ' to ' + newPlaceholder.attr('id'));
+            // Item dropped
             var split = itemInMove.attr('data-id').split('_');
             var params;
 
@@ -59,9 +65,7 @@ function setup_admin_bar(page_id, create_url, update_url, sort_url) {
                 // Create
                 params = 'placeholder=' + newPlaceholder.attr('id') + '&page_id=' + page_id;
                 $(this).postWithAjax(create_url, params + '&reg_id=' + split.last(), function() {
-                    console.log('create ' + params);
                     $(this).postWithAjax(sort_url, params + '&' + newPlaceholder.sortable('serialize', {attribute: 'data-id'}), function() {
-                        console.log('sort ' + params);
                         newPlaceholder.effect("highlight", {}, 2000);
                     });
                 });
@@ -71,62 +75,35 @@ function setup_admin_bar(page_id, create_url, update_url, sort_url) {
                 if (newPlaceholder == oldPlaceholder) {
                     // just order was changed
                     $(this).postWithAjax(sort_url, params + '&' + newPlaceholder.sortable('serialize', {attribute: 'data-id'}),
-                            function() {
-                                console.log('sort - reorder ' + params);
-                                newPlaceholder.effect("highlight", {}, 2000);
-                            },
-                            function() {
-                                oldPlaceholder.sortable('cancel');
-                                oldPlaceholder.effect("highlight", {color: 'red'}, 2000);
-                            }
+                            function() { newPlaceholder.effect("highlight", {}, 2000); },
+                            function() { flash_error(oldPlaceholder); }
                     );
                 } else {
                     // Move between placeholders
                     var url = update_url.replace('ReplaceMe', split.last());
-                    console.log('sort - move');
                     // 1. Change placeholder
                     $(this).putWithAjax(url, params,
                             function() {
-                                console.log('sort - sort new');
                                 // 2. Sort new one
                                 $(this).postWithAjax(sort_url, params + '&' + newPlaceholder.sortable('serialize', {attribute: 'data-id'}),
                                         function() {
-                                            console.log('sort - sort old');
                                             // 3. Sort old one
                                             params = 'placeholder=' + oldPlaceholder.attr('id') + '&page_id=' + page_id;
                                             $(this).postWithAjax(sort_url, params + '&' + oldPlaceholder.sortable('serialize', {attribute: 'data-id'}),
-                                                    function() {
-                                                        newPlaceholder.effect("highlight", {}, 2000);
-                                                    },
-                                                    function() {
-                                                        oldPlaceholder.sortable('cancel');
-                                                        oldPlaceholder.effect("highlight", {color: 'red'}, 2000);
-                                                    }
+                                                    function() { newPlaceholder.effect("highlight", {}, 2000); },
+                                                    function() { flash_error(oldPlaceholder); }
                                             );
                                         },
-                                        function() {
-                                            oldPlaceholder.sortable('cancel');
-                                            oldPlaceholder.effect("highlight", {color: 'red'}, 2000);
-                                        }
+                                        function() { flash_error(oldPlaceholder); }
                                 );
                             },
-                            function() {
-                                oldPlaceholder.sortable('cancel');
-                                oldPlaceholder.effect("highlight", {color: 'red'}, 2000);
-                            }
-                    );
+                            function() { flash_error(oldPlaceholder); }
+                   );
                 }
             }
 
-        },
-        change: function(event, ui) {
-            if (ui.sender) {
-                newPlaceholder = ui.placeholder.parent();
-                console.warn('placeholder change to ' + newPlaceholder.attr('id'));
-            }
         }
     });
     $('.draggable, .draggable li, .placeholder_page, .placeholder_page li, .placeholder_theme, .placeholder_theme li')
             .disableSelection();
 }
-
