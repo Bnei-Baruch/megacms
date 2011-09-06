@@ -1,0 +1,140 @@
+// Initialise tree
+function setup_admin_tree(url) {
+
+    jQuery('.tree')
+            .jstree({
+                'plugins': [ 'themes', 'html_data', 'ui', 'crrm', 'dnd' ],
+                'core': {
+                    'rtl': false,
+                    'animation': 0
+                },
+                'themes': {
+                    'theme': false,
+                    'dots': true,
+                    'icons': false
+                },
+                html_data: {
+                    ajax: {
+                        url: url,
+                        data: function(n){
+                            return { parent_id : n.attr ? n.attr("data-id") : 0 };
+                        }
+                    }
+                },
+                'crrm': {
+                    'move': {
+                        'default_position': 'inside',
+                        'check_move': function(m) {
+                            // Do not permit to move outside of the tree
+                            return (typeof m.np.attr('id') != 'undefined');
+                        }
+                    }
+                }
+            })
+            .bind("move_node.jstree", move_node)
+            .bind("select_node.jstree", select_action)
+            ;
+}
+
+function select_action(e, data) {
+    var obj = $(data.args[0]);
+    var href = obj.attr('href');
+    if (obj.hasClass('delete-link')) {
+        var answer = confirm('Going to remove the node and all its children. Are you sure?');
+        if (answer) {
+            $('.tree').postWithAjax(href,
+                    '_method=delete',
+                    function() {
+                        // Success
+                        data.inst.delete_node();
+                    },
+                    function() {
+                        // Failure
+                        alert('Failure');
+                    }
+            );
+        }
+        return;
+    }
+    if (typeof href != 'undefined')
+        window.location.href = href;
+}
+
+// data.rslt includes:
+// .o  - the node being moved
+// .r  - the reference node in the move
+// .ot - the origin tree instance
+// .rt - the reference tree instance
+// .p  - the position to move to (may be a string - "last", "first", etc)
+// .cp - the calculated position to move to (always a number)
+// .np - the new parent
+// .oc - the original node (if there was a copy)
+// .cy - boolen indicating if the move was a copy
+// .cr - same as np, but if a root node is created this is -1
+// .op - the former parent
+// .or - the node that was previously in the position of the moved node
+
+function move_node(event, data) {
+    var rslt = data.rslt;
+    var is_copy = rslt.cy;
+    var node = rslt.o;
+    var src = rslt.op;
+    var src_pos = rslt.cop;
+    var targ = rslt.np;
+    var targ_pos = rslt.cp;
+
+    var message = (is_copy ? 'COPY' : 'MOVE') + ': ' + node.children('a:eq(0)').text() + ' (#' + node.attr('id') + ')<br/>'
+            + ' from ' + (typeof src.attr('id') == 'undefined' ? 'TOPMOST' : (src.children('a:eq(0)').text() + ' (#' + src.attr('id') + ')'))
+            + ' pos ' + src_pos + '<br/>'
+            + ' to ' + (typeof targ.attr('id') == 'undefined' ? 'TOPMOST' : (targ.children('a:eq(0)').text() + ' (#' + targ.attr('id') + ')'))
+            + ' pos ' + targ_pos
+            ;
+    $('.tree').getWithAjax(node_change_url,
+            'is_copy=' + (is_copy ? 1 : 0) +
+            '&node=' + node.attr('data-id') +
+            '&source=' + src.attr('data-id') +
+            '&pos_from=' + src_pos +
+            '&target=' + targ.attr('data-id') +
+            '&pos_to=' + targ_pos,
+            function() {},
+            function() {}
+    );
+}
+
+// cmd - 'navigation' or 'published'
+function set_status(self, cmd){
+    var is_checked = $(self).is(':checked');
+    var page_id = $(self).closest('li').data('id');
+
+    var url;
+    if (cmd == 'navigation') {
+        url = node_nav_url;
+    } else if (cmd == 'published') {
+        url = node_publish_url;
+    } else if (cmd == 'homepage') {
+        url = node_homepage_url;
+    } else {
+        alert('Unknown command: ' + cmd);
+        return;
+    }
+
+    $('.tree').getWithAjax(url,
+            'page_id=' + page_id +
+            '&is_checked=' + is_checked,
+            function() {
+                // Success
+                $(self).parent().toggleClass('yes');
+                if (cmd == 'homepage') {
+                    // Unmark other nodes as homepage
+                    $('.tree .softroot-icon').toggleClass('softroot-icon').toggleClass('icon');
+                    // Mark this node as homepage
+                    $(self).closest('li').find('.col-softroot:first').html('<a title="Unset Homepage" id="homepage-link-3" class="icon softroot-icon" href="#"><ins class="jstree-icon">&nbsp;</ins><span>homepage</span></a>');
+                }
+            },
+            function() {
+                // Failure
+                $(self).attr('checked', !is_checked);
+            }
+    )
+}
+

@@ -75,8 +75,12 @@ function setup_admin_bar(page_id, create_url, update_url, sort_url) {
                 if (newPlaceholder == oldPlaceholder) {
                     // just order was changed
                     $(this).postWithAjax(sort_url, params + '&' + newPlaceholder.sortable('serialize', {attribute: 'data-id'}),
-                            function() { newPlaceholder.effect("highlight", {}, 2000); },
-                            function() { flash_error(oldPlaceholder); }
+                            function() {
+                                newPlaceholder.effect("highlight", {}, 2000);
+                            },
+                            function() {
+                                flash_error(oldPlaceholder);
+                            }
                     );
                 } else {
                     // Move between placeholders
@@ -90,15 +94,23 @@ function setup_admin_bar(page_id, create_url, update_url, sort_url) {
                                             // 3. Sort old one
                                             params = 'placeholder=' + oldPlaceholder.attr('id') + '&page_id=' + page_id;
                                             $(this).postWithAjax(sort_url, params + '&' + oldPlaceholder.sortable('serialize', {attribute: 'data-id'}),
-                                                    function() { newPlaceholder.effect("highlight", {}, 2000); },
-                                                    function() { flash_error(oldPlaceholder); }
+                                                    function() {
+                                                        newPlaceholder.effect("highlight", {}, 2000);
+                                                    },
+                                                    function() {
+                                                        flash_error(oldPlaceholder);
+                                                    }
                                             );
                                         },
-                                        function() { flash_error(oldPlaceholder); }
+                                        function() {
+                                            flash_error(oldPlaceholder);
+                                        }
                                 );
                             },
-                            function() { flash_error(oldPlaceholder); }
-                   );
+                            function() {
+                                flash_error(oldPlaceholder);
+                            }
+                    );
                 }
             }
 

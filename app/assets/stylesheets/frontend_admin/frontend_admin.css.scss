@@ -5,4 +5,8 @@
  *= require reset
  *= require_self
  *= require vendor
+ *= require_tree .
+ *= require formtastic
+ *= require formtastic_ie6
+ *= require formtastic_ie7
 */

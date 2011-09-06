@@ -1,0 +1,15 @@
+= semantic_form_for [:frontend_admin, @page] do |f|
+  = f.inputs do
+    = f.input :site_id, :as => :hidden
+    = f.input :parent_id, :as => :hidden
+    = f.input :editor_id, :as => :hidden
+    = f.input :permalink
+    = f.input :title
+    = f.input :description, :input_html => { :rows => 3 }
+    = f.input :image, :as => :file
+    -#= f.input :placeholder
+    %label(style="float: left") In navigation
+    = f.input :in_navigation, :label => '', :hint => 'The node will present in navigation menu'
+    = f.input :theme, :hint => 'Select Theme'
+    = f.input :state, :collection => ['DRAFT', 'PUBLISHED']
+  = f.buttons

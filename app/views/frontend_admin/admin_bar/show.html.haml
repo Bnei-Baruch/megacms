@@ -6,6 +6,7 @@
           = widget.system_name
   - if current_user
     #admin-bar-wrapper
+      .title= 'MegaCMS Administration'
       #user-navigation
         %ul.wat-cf
           %li
@@ -18,10 +19,6 @@
       #pages-navigation
         %ul.wat-cf
           %li
-            - title = "Edit #{@page.permalink} (#{@page.title})"
-            = link_to image_tag('/assets/rails_admin/theme/activo/images/icons/edit.png', :alt => title),
-             edit_page_path(@page), :title => title
-          %li
             - title = "Manage Pages"
             = link_to image_tag('/assets/rails_admin/theme/activo/images/icons/application_edit.png', :alt => title),
              edit_page_path(@page), :title => title
@@ -31,6 +28,7 @@
         %ul.wat-cf
           %li
             = link_to_function 'Widgets', 'toggle_widgets()', :title => "Show widgets", :class => :show_widgets
+
 :javascript
   $(function() {
     setup_admin_bar("#{@page.id}",

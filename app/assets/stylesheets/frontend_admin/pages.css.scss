@@ -1,3 +1,370 @@
-// Place all the styles related to the FrontendAdmin::Pages controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+#sitemap {
+    border: 1px solid #DEDEDC;
+    background-color: #FFFFEE;
+    margin: 5px 10px;
+    padding: 0 0 5px 0;
+
+    a {
+        text-decoration: none;
+        border: none;
+        outline: none;
+        &:hover {
+            text-decoration: underline;
+
+        }
+    }
+
+    .jstree li {
+        margin-left: 0;
+    }
+    .jstree-default li, .jstree-default ins {
+        background: none;
+    }
+    .tree ul > li > ins.jstree-icon {
+        position: absolute;
+        top: 0;
+        left: 5px;
+        display: block;
+    }
+
+    .tree {
+        background: none !important;
+        ul {
+            list-style-type: none;
+            display: block;
+            clear: both;
+            background: image-url('admin_bar/jstree/bb/ul.gif') repeat-y 0 0;
+            li {
+                font-size: 11px;
+                list-style-type: none;
+                display: block;
+                height: 28px;
+                line-height: 28px;
+                position: relative;
+                padding-left: 20px;
+                clear: both;
+                a {
+                    z-index: 100;
+                    &:hover{
+                        box-shadow: -1px -1px 2px #FF0000;
+                        -webkit-box-shadow: -1px -1px 2px #FF0000;
+                        -moz-box-shadow: -1px -1px 2px #FF0000;
+                        border-radius: 3px;
+                        -webkit-border-radius: 3px;
+                        -moz-border-radius: 3px;
+                    }
+                }
+                ins {
+                    display: none;
+                }
+                .icon {
+                    background: image-url('admin_bar/jstree/bb/icons.png') no-repeat 0 0;
+                }
+                .handler {
+                    float: left;
+                    height: 25px;
+                    width: 12px;
+                    background: image-url("admin_bar/jstree/bb/sitemap-li-drag.gif");
+                    margin:1px 5px 1px 2px;
+                    padding: 0 !important;
+                    text-decoration: none;
+                    &:hover {
+                        padding: 0 !important;
+                        text-decoration: none;
+                    }
+                }
+                a.add-link, a.delete-link {
+                    width: 10px;
+                    height: 10px;
+                    margin: 0 0 0 4px;
+                    padding: 0;
+                    display: inline-block;
+                    background-position: 0 0;
+                    span { display: none; }
+                }
+                .cont {
+                    /*background: url("/assets/admin_bar/jstree/bb/sitemap-li-bg.jpg") repeat-x 0 0;*/
+                    background-color: silver;
+                    background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f1f1f1)); /* Saf4+, Chrome */
+                    background-image: -webkit-linear-gradient(top, #ffffff, #f1f1f1); /* Chrome 10+, Saf5.1+, iOS 5+ */
+                    background-image:    -moz-linear-gradient(top, #ffffff, #f1f1f1); /* FF3.6 */
+                    background-image:     -ms-linear-gradient(top, #ffffff, #f1f1f1); /* IE10 */
+                    background-image:      -o-linear-gradient(top, #ffffff, #f1f1f1); /* Opera 11.10+ */
+                    background-image:         linear-gradient(top, #ffffff, #f1f1f1);
+                            filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff', EndColorStr='#f1f1f1'); /* IE6–IE9 */
+                    display: block;
+                    &:hover {
+                        background-color: #bbd1e9;
+                        background-image: -webkit-gradient(linear, left top, left bottom, from(#bbd1e9), to(#98b7d6)); /* Saf4+, Chrome */
+                        background-image: -webkit-linear-gradient(top, #bbd1e9, #98b7d6); /* Chrome 10+, Saf5.1+, iOS 5+ */
+                        background-image:    -moz-linear-gradient(top, #bbd1e9, #98b7d6); /* FF3.6 */
+                        background-image:     -ms-linear-gradient(top, #bbd1e9, #98b7d6); /* IE10 */
+                        background-image:      -o-linear-gradient(top, #bbd1e9, #98b7d6); /* Opera 11.10+ */
+                        background-image:         linear-gradient(top, #bbd1e9, #98b7d6);
+                                filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#bbd1e9', EndColorStr='#98b7d6'); /* IE6–IE9 */
+                    }
+                    .col1 {
+                        text-align: left;
+                        height: 28px;
+                        width: auto;
+                        line-height: 28px;
+                        float: left;
+                        display: block;
+                        padding-left: 3px;
+                        padding-right: 3px;
+                        white-space: nowrap;
+                        filter: alpha(opacity=70);
+                        -moz-opacity: 0.70;
+                        opacity: 0.70;
+                        a.title {
+                            padding-right: 30px;
+                            &:hover {
+                                background: image-url("admin_bar/jstree/bb/icon_pluginedit.gif") no-repeat right 0 transparent;
+                            }
+                        }
+                    }
+                    .col2 {
+                        float: right;
+                    }
+                }
+                .col-softroot, .col-language, .col-actions, .col-published, .col-navigation, .col-moderator,
+                .col-lastchange, .col-draft, .col-creator {
+                    border-left: 1px solid #dededc;
+                    text-align: center;
+                    height: 28px;
+                    width: auto;
+                    line-height: 28px;
+                    float: left;
+                    display: block;
+                    padding-left: 3px;
+                    padding-right: 3px;
+                    white-space: nowrap;
+                    filter: alpha(opacity=70);
+                    -moz-opacity: 0.70;
+                    opacity: 0.70;
+                }
+                .col-softroot, .col-language {
+                    background: none;
+                    border: none;
+                    width: auto;
+                    text-align: right;
+                    padding-right: 5px;
+                }
+                .col-softroot {
+                    .softroot-icon{
+                        background-position: -80px 0px;
+                        width: 15px;
+                        height: 15px;
+                        margin-top: 7px;
+                    }
+                    span { display: none; }
+                }
+                .col-language {
+                    a {
+                        text-transform: uppercase;
+                        &:hover { text-decoration: underline; }
+                    }
+                }
+                .col-actions {
+                    width: 77px;
+                    a { vertical-align: middle; }
+                    .add-link {
+                        background: image-url("admin_bar/jstree/bb/icon_addlink.gif") no-repeat scroll 0 0.2em transparent;
+                        width: 15px;
+                        height: 15px;
+                    }
+                    .delete-link {
+                        background: image-url("admin_bar/jstree/bb/icon_deletelink.gif") no-repeat scroll 0 0.2em transparent;
+                        width: 15px;
+                        height: 15px;
+                    }
+                    .homepage-link {
+                        background-position: -80px 0px;
+                        width: 15px;
+                        height: 15px;
+                        span { display: none; }
+                    }
+                }
+                .col-published {
+                    width: 70px;
+                    text-align: center;
+                    a, input, label { vertical-align: middle; }
+                    .selector-add {
+                        background-position: -20px 0;
+                        width: 15px;
+                        height: 15px;
+                        span { display: none; }
+                    }
+                }
+                .col-draft {
+                    text-align: right;
+                    a, span {
+                       vertical-align: middle;
+                       margin-top: 0;
+                    }
+                    a.approve {
+                        margin-left: 4px;
+                        background-position: -60px -80px;
+                        margin-top: -4px;
+                    }
+                }
+                .col-navigation {
+                    width: 82px;
+                    background: image-url("admin_bar/jstree/bb/icon-no.gif") no-repeat 20px center;
+                    input {
+                        vertical-align: middle;
+                    }
+                }
+                .col-navigation.yes {
+                    background: image-url("admin_bar/jstree/bb/icon-yes.gif") no-repeat 20px center;
+                }
+                .col-navigation.no {
+                }
+                .col-lastchange {
+                    width: 128px;
+                }
+                .col-moderator {
+                    width: 72px;
+                }
+                .col-lastchange, .col-published { text-align: left; }
+            }
+        }
+    }
+    li.jstree-open{
+        > ins {
+            background: #FFFFEE image-url("admin_bar/jstree/bb/fminus-open.gif") no-repeat 0 0;
+            width: 15px;
+            height: 28px;
+        }
+        ul {
+            display: block;
+        }
+    }
+    li.jstree-closed{
+        > ins {
+            background: #FFFFEE image-url("admin_bar/jstree/bb/fplus-open.gif") no-repeat 0 0;
+            width: 15px;
+            height: 28px;
+        }
+        ul {
+            display: none;
+        }
+    }
+    li.jstree-open.jstree-last{
+        > ins {
+            background: #FFFFEE image-url("admin_bar/jstree/bb/fminus.gif") no-repeat 0 0;
+        }
+    }
+    li.jstree-closed.jstree-last{
+        > ins {
+            background: #FFFFEE image-url("admin_bar/jstree/bb/fplus.gif") no-repeat 0 0;
+        }
+    }
+    li.jstree-leaf.jstree-last{
+        > ins {
+            background: #FFFFEE image-url("admin_bar/jstree/bb/lastli.gif") no-repeat 0 0;
+            width: 15px;
+            height: 28px;
+        }
+    }
+    li.jstree-leaf{
+        > ins {
+            background: #FFFFEE image-url("admin_bar/jstree/bb/leaf.gif") no-repeat 0 center;
+            width: 15px;
+            height: 28px;
+        }
+    }
+
+    ul.header{
+        background: none;
+        border: none;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        li {
+            font-size: 11px;
+            list-style: none;
+            margin: 0;
+            background: #e1e1e1 image-url('admin_bar/jstree/bb/nav-bg.gif') repeat-x left top;
+            border: none;
+            border-bottom: 1px solid #DDDDDD;
+            color: #666666;
+            font-size: 11px;
+            font-weight: bold;
+            height: auto;
+            padding: 2px 0 2px 5px;
+            .cont {
+                background: none;
+                border: none;
+                height: 15px;
+                &:hover {
+                    a, .col-language {
+                        color: #fff;
+                    }
+                }
+                .col1 {
+                    float: left;
+                    text-align: center;
+                    width: auto;
+                    float: left;
+                    display: block;
+                    padding-left: 3px;
+                    padding-right: 3px;
+                    white-space: nowrap;
+                    filter: alpha(opacity=70);
+                    -moz-opacity: 0.70;
+                    opacity: 0.70;
+                }
+                .col2 {
+                    float: right;
+                    .col-softroot, .col-language, .col-actions, .col-published, .col-navigation, .col-moderator,
+                    .col-lastchange, .col-draft, .col-creator {
+                        text-align: center;
+                        float: left;
+                        display: block;
+                        padding-left: 3px;
+                        padding-right: 3px;
+                        white-space: nowrap;
+                        filter: alpha(opacity=70);
+                        -moz-opacity: 0.70;
+                        opacity: 0.70;
+                        border-left: 1px solid transparent;
+                    }
+                }
+                a.change-link { display: inline; }
+                .col-actions{
+                    width: 77px;
+                }
+                .col-navigation{
+                    width: 82px;
+                }
+                .col-published{
+                    width: 70px;
+                }
+                .col-last-edited{
+                    width: 128px;
+                }
+                .col-last_editor{
+                    width: 72px;
+                    max-width: 72px;
+                }
+            }
+        }
+    }
+}
+
+#vakata-dragged.jstree-default {
+    ins {
+        background: transparent !important;
+    }
+    .jstree-ok {
+        background: image-url('admin_bar/jstree/bb/d.png') no-repeat -2px -53px !important;
+    }
+    .jstree-invalid {
+        background: image-url('admin_bar/jstree/bb/d.png') no-repeat -18px -53px !important;
+    }
+}
+#jstree-marker.jstree-default {
+    background: image-url('admin_bar/jstree/bb/d.png') no-repeat -41px -57px !important;
+    text-indent: -100px;
+}

@@ -1,9 +1,6 @@
 // Place all the styles related to the FrontendAdmin::AdminBar controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.clear {
-    clear: both;
-}
 $to: #999999;
 
 @mixin box-gradient($from: #444444, $to: #999999) {
@@ -15,6 +12,12 @@ $to: #999999;
   background-image:      -o-linear-gradient(top, $from, $to); /* Opera 11.10+ */
   background-image:         linear-gradient(top, $from, $to);
             filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='$from', EndColorStr='$to'); /* IE6–IE9 */
+}
+
+body {
+    color: #333333;
+    font-family: "Lucida Grande","DejaVu Sans","Bitstream Vera Sans",Verdana,Arial,sans-serif;
+    font-size: 12px;
 }
 
 .wat-cf{
@@ -48,9 +51,18 @@ $to: #999999;
             top: 0;
             height: 35px;
             width: 100%;
-            @include box-gradient;
-            box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.25) inset, 0 1px 1px rgba(255, 255, 255, 0.3);
-            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+            background: none repeat scroll 0 0 #417690;
+            color: #FFFFCC;
+            overflow: hidden;
+            a, a:visited {
+                color: #FFFFCC;
+                text-decoration: none;
+                font-weight: bold;
+            }
+            a:hover{
+                color: yellow;
+                text-shadow: -5px -5px 12px yellow;
+            }
             #user-navigation {
                 float: right;
             }
@@ -68,6 +80,12 @@ $to: #999999;
                 .opened {
                     background: image_url('/assets/rails_admin/theme/activo/images/icons/see-less.png') no-repeat 0 2px;
                 }
+            }
+            .title {
+                float: left;
+                font-size: 17px;
+                line-height: 34px;
+                padding-left: 20px;
             }
         }
         #widgets-container {
@@ -110,7 +128,6 @@ $to: #999999;
                     color: #931900;
                     border: 1px solid #931900;
                     background-color: rgba(255, 163, 0, 0.3);
-
                 }
             }
         }
