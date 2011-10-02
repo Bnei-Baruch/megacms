@@ -4,10 +4,11 @@
       - @widgets.each do |widget|
         %li(data-id="registered_widget_#{widget.id}")
           = widget.system_name
-  #admin-bar-wrapper
-    #user-navigation
-      %ul.wat-cf
-        - if current_user
+  - if current_user
+    #admin-bar-wrapper
+      .title= 'MegaCMS Administration'
+      #user-navigation
+        %ul.wat-cf
           %li
             - title = "Edit #{current_user.email}"
             = link_to image_tag('/assets/rails_admin/theme/activo/images/session/account.png', :alt => title),
@@ -15,16 +16,8 @@
           %li
             = link_to image_tag('/assets/rails_admin/theme/activo/images/session/logout.png', :alt => 'Log out'),
              destroy_user_session_path, :title =>  'Log out', :method => :delete, :confirm => "Are you sure?"
-        - else
-          %li
-            = link_to 'Log in', new_user_session_path, :title =>  'Log in'
-    - if current_user
       #pages-navigation
         %ul.wat-cf
-          %li
-            - title = "Edit #{@page.permalink} (#{@page.title})"
-            = link_to image_tag('/assets/rails_admin/theme/activo/images/icons/edit.png', :alt => title),
-             edit_page_path(@page), :title => title
           %li
             - title = "Manage Pages"
             = link_to image_tag('/assets/rails_admin/theme/activo/images/icons/application_edit.png', :alt => title),
@@ -35,6 +28,7 @@
         %ul.wat-cf
           %li
             = link_to_function 'Widgets', 'toggle_widgets()', :title => "Show widgets", :class => :show_widgets
+
 :javascript
   $(function() {
     setup_admin_bar("#{@page.id}",

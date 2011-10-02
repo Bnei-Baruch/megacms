@@ -27,6 +27,13 @@ Megacms::Application.routes.draw do
     resources :widgets do
       post :sort, :on => :collection
     end
+    resources :pages do
+      get :get_children, :on => :member
+      get :node_change, :on => :collection
+      get :set_homepage_status, :on => :collection
+      get :set_navigation_status, :on => :collection
+      get :set_published_status, :on => :collection
+    end
   end
   root :to => "pages#show"
 

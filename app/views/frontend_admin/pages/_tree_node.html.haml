@@ -1,0 +1,33 @@
+- id = node.id
+- klass = node.pages_count > 0 ? 'jstree-closed' : 'jstree-leaf'
+- updated_at = node.updated_at.strftime('%Y-%m-%d')
+
+%li{:id => "page-#{id}", :class => "#{klass}", 'data-id' => "#{id}"}
+  - if with_handler
+    = link_to '&nbsp;'.html_safe, '#', :class => 'handler', :title => 'Move or Copy'
+  .cont
+    .col1
+      = link_to node.title, edit_frontend_admin_page_path(node.id), :class => :title, :title => 'Edit'
+    .col2
+      .col-softroot
+        - if is_homepage
+          = link_to '<span>homepage</span>'.html_safe, '#', :id => "homepage-link-#{id}", :class => 'softroot-icon icon',
+            :title => 'Homepage', :onclick => 'return false;'
+      .col-actions
+        = link_to '<span>add</span>'.html_safe, "#{new_frontend_admin_page_path(:parent_id => id)}", :id => "add-link-#{id}", :class => 'add-link', :title => 'Add child'
+        = link_to '<span>delete</span>'.html_safe, "#{frontend_admin_page_path(id)}",
+          :id => "delete-link-#{id}", :class => 'delete-link', :title => 'Delete', :onclick => 'return false;'
+        = link_to '<span>homepage</span>'.html_safe, "#",
+          :id => "homepage-link-#{id}", :class => 'homepage-link icon', :title => 'Set Homepage',
+          :onclick => 'set_status(this, "homepage"); return false;'
+      .col-navigation{:class => "#{node.in_navigation ? 'yes' : ''}"}
+        = check_box_tag "nav-link-#{id}", '0', node.in_navigation, :class => 'navigation-checkbox', :onclick => 'set_status(this, "navigation");'
+      .col-published
+        = check_box_tag "status-#{id}", '0', node.state == 'PUBLISHED', :title => 'Publish', :class => 'publish-checkbox', :onclick => 'set_status(this, "published");'
+        = link_to '<span>view</span>'.html_safe, '#', :id => "preview-#{id}", :title => 'Preview', :class => 'icon selector-add viewpage'
+      .col-published
+        = updated_at
+      .col-moderator
+        = node.editor.email.split(/@/)[0]
+    .clear
+  .clear

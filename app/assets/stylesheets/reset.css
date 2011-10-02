@@ -66,3 +66,7 @@ a img { border: none; }
 
 /* Lists without bullets */
 ul { list-style-type: none; }
+
+.clear {
+    clear: both;
+}

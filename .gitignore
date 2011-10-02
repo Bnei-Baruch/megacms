@@ -9,3 +9,4 @@ db/schema.rb
 *~
 *.swp
 *.swo
+Gemfile.lock

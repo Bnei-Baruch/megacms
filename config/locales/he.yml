@@ -23,6 +23,65 @@ he:
       name: history
       page_name: page
 
+  time:
+    formats:
+      attendance_report: "%d ל%B %Y"
+      graph: "%d %B"
+      short: "%d-%m-%Y"
+      timestamp: "%m-%d-%Y %H:%M"
+      default: "%Y-%m-%d %H:%M"
+  date:
+    abbr_day_names:
+      - א
+      - ב
+      - ג
+      - ד
+      - ה
+      - ו
+      - ש
+    abbr_month_names:
+      - ~
+      - יאנ
+      - פב
+      - מרץ
+      - אפר
+      - מאי
+      - יונ
+      - יול
+      - אוג
+      - ספט
+      - אוק
+      - נוב
+      - דצ
+    day_names:
+      - ראשון
+      - שני
+      - שלישי
+      - רביעי
+      - חמישי
+      - שישי
+      - שבת
+    formats:
+      graph: "%d %B"
+      short: "%d %B %Y"
+    month_names:
+      - ~
+      - ינואר
+      - פברואר
+      - מרץ
+      - אפריל
+      - מאי
+      - יוני
+      - יולי
+      - אוגוסט
+      - ספטמבר
+      - אוקטובר
+      - נובמבר
+      - דצמבר
+    order:
+      - !ruby/symbol day
+      - !ruby/symbol month
+      - !ruby/symbol year
   number:
     # Used in number_with_delimiter()
     # These are also the defaults for 'currency', 'percentage', 'precision', and 'human'

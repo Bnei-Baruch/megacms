@@ -1,0 +1,2 @@
+- @pages.each do |node|
+  = render 'tree_node', :node => node, :with_handler => @is_moveable, :is_homepage => node == @site.default_page

@@ -1,0 +1,24 @@
+#sitemap
+  %ul.header
+    %li
+      .cont
+        .col1= 'title'
+        .col2
+          .col-actions= 'actions'
+          .col-navigation= 'in navigation'
+          .col-published= 'published'
+          .col-published= 'last edited'
+          .col-creator= 'changed by'
+  .tree
+  .clear
+
+:javascript
+  var node_change_url = "#{node_change_frontend_admin_pages_url}",
+      node_nav_url = "#{set_navigation_status_frontend_admin_pages_url}",
+      node_publish_url = "#{set_published_status_frontend_admin_pages_url}",
+      node_homepage_url = "#{set_homepage_status_frontend_admin_pages_url}"
+      ;
+
+  $(function() {
+    setup_admin_tree("#{get_children_frontend_admin_page_path(@site.pages.root_page)}");
+  });

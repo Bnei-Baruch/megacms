@@ -19,8 +19,9 @@ class Page < ActiveRecord::Base
   has_many :widgets
   belongs_to :site
   belongs_to :theme
+  belongs_to :editor, :class_name => 'User'
 
-  acts_as_tree
+  acts_as_tree :counter_cache => true, :order => :position
 
   has_attached_file :image,
                     :styles => {
@@ -44,11 +45,24 @@ class Page < ActiveRecord::Base
   attr_accessor :delete_image
 
 
+###### --- scopes ---
+
+  scope :site, Proc.new {|site_id| where(:site_id => site_id) }
+
+  # State
+  scope :draft, where(:status => 'DRAFT')
+  scope :published, where(:status => 'PUBLISHED')
+  scope :deleted, where(:status => 'DELETED')
+
+  scope :in_navigation, where(:in_navigation => true)
+
+
 ###### --- validations ---
 
   validates_attachment_size :image, :less_than => 1.megabytes
 #validates_attachment_presence :image
   validates :permalink, :uniqueness => true, :presence => true
+  validates :title, :presence => true
 
 
 ###### --- callbacks ---
