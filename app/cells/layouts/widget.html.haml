@@ -1,0 +1,5 @@
+- if current_user
+  .management
+    = link_to 'edit', edit_frontend_admin_widget_path(@widget)
+    = link_to 'delete', frontend_admin_widget_path(@widget), :confirm => 'Are you sure?', :method => :delete
+= yield :content

@@ -40,5 +40,12 @@ module Megacms
 
     # Enable the asset pipeline
     config.assets.enabled = true
+    config.assets.paths << "#{Rails.root}/app/cells"
+    #Dir.glob("#{Rails.root}/app/cells/*") do |dir|
+    #  if File.directory? dir
+    #    config.assets.paths << dir
+    #  end
+    #end
+
   end
 end

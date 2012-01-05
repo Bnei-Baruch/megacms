@@ -1,0 +1,8 @@
+- content_for :content do
+  - if @article
+    = @article.title
+  - else
+    .empty
+      This widget has no content please
+      =link_to 'edit', edit_frontend_admin_widget_path(@widget)
+      to add some article

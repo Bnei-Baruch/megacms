@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  widget_id: 1
+  asset_id: 1
+  position: 1
+
+two:
+  widget_id: 1
+  asset_id: 1
+  position: 1

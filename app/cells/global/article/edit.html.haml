@@ -1,0 +1,12 @@
+= semantic_form_for(@article, :url => frontend_admin_widget_path(@widget), :method => :put) do |form|
+  = form.inputs do
+    = form.input :id, :as => :hidden
+    = form.input :title
+    = form.input :subtitle
+    = form.input :description
+    = form.input :image, :as => :file
+    = form.input :author
+    = form.input :publication_date, :as => :string
+    = form.input :body, :as => :ckeditor
+    = form.input :source
+  = form.buttons

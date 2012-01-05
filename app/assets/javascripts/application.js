@@ -8,6 +8,7 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require pages
+//= require_tree ../../cells
 
 jQuery.ajaxSetup({
     'beforeSend': function(xhr) {

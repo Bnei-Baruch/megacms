@@ -8,7 +8,7 @@ class PagesController < ApplicationController
   private
 
   def get_layout
-    @page.get_theme.try(:system_name) || "application"
+    @page.try(:get_theme).try(:system_name) || "application"
   end
 
 end

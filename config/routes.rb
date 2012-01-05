@@ -24,8 +24,10 @@ Megacms::Application.routes.draw do
   resources :pages
   namespace :frontend_admin do
     resources :admin_bar
+    resources :pages
     resources :widgets do
       post :sort, :on => :collection
+      put :update_placeholder, :on => :member
     end
     resources :pages do
       get :get_children, :on => :member

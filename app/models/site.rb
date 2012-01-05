@@ -8,6 +8,7 @@ class Site < ActiveRecord::Base
     end
   end
   belongs_to :default_page, :class_name => 'Page', :foreign_key => :default_page_id
+  has_many :content_assets
 
   validates :theme_id, :presence => true
   validates :default_page_id, :presence => true

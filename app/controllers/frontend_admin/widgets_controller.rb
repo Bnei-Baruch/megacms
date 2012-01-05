@@ -1,23 +1,44 @@
 class FrontendAdmin::WidgetsController < ApplicationController
   layout false
 
+  #def new
+  #  owner = :page_id
+  #  @widget = Widget.new(:registered_widget_id => 'article', owner => 1)
+  #
+  #end
+
   # create new instance
   def create
-    placeholder = params[:placeholder]
-    page_id = params[:page_id]
-    reg_id = params[:reg_id]
+    @placeholder = params[:placeholder]
+    @page_id = params[:page_id]
+    @reg_id = params[:reg_id]
 
     # dropped from list of registered widgets
-    rw = RegisteredWidget.find(reg_id)
-    w = Widget.create(:page_id => page_id, :placeholder => placeholder, :registered_widget_id => reg_id, :position => 0)
-    content = render_cell(rw.system_name.to_sym, :display, :widget => w).gsub(/\n/, '')
-    management = "<div class=\"management\"><a href=\"#edit\">edit</a>&nbsp;<a href=\"#delete\">delete</a></div>".html_safe
-    render :js=> "$('##{placeholder} li[data-id=registered_widget_#{reg_id}]').html('#{management +
-        content}').attr('data-id', 'widget_#{w.id}').addClass('widget-wrap');console.info('created');"
+    @registered_widget = RegisteredWidget.find(@reg_id)
+    @widget = Widget.create(:page_id => @page_id, :placeholder => @placeholder, :registered_widget_id => @reg_id, :position => 0)
+  end
+
+  def edit
+    widget = Widget.find params[:id]
+    widget_type = widget.cell_class
+
+    @cell_opts = {:widget_options => {:widget => widget, :site => @site, :page => @page, :controller => self}, :state => :edit, :widget_type => widget_type}
+    render :layout => 'application'
+  end
+
+  def update
+    widget = Widget.find params[:id]
+    widget_type = widget.cell_class
+    cell = render_cell(widget_type, :update, :widget => widget, :site => @site, :page => @page)
+    if cell == true
+      redirect_to page_path(widget.page)
+    else
+      render :text => cell
+    end
   end
 
   # update placeholder
-  def update
+  def update_placeholder
     placeholder = params[:placeholder] # new placeholder
     page_id = params[:page_id]
     id = params[:id]
@@ -47,6 +68,10 @@ class FrontendAdmin::WidgetsController < ApplicationController
     end
 
     render :nothing => true, :status => status
+  end
+
+  def destroy
+    kuku = 1
   end
 
 end

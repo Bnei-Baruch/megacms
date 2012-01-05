@@ -10,10 +10,10 @@
     - if current_user
       = stylesheet_link_tag "frontend_admin/frontend_admin"
       /[if IE 6]
-        = stylesheet_link_tag "ie6"
+      = stylesheet_link_tag 'ie6'
       /[if IE 7]
-        = stylesheet_link_tag "ie7"
-      = javascript_include_tag "frontend_admin/frontend_admin"
+      = stylesheet_link_tag 'ie7'
+    = javascript_include_tag "application", "/javascripts/ckeditor/ckeditor", "frontend_admin/frontend_admin"
     = csrf_meta_tags
     - if content_for?(:meta_description)
       %meta{'name' => 'description', :content => yield(:meta_description)}/

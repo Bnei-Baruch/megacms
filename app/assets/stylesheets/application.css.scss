@@ -4,5 +4,8 @@
  * the top of the compiled file, but it's generally better to create a new file per style scope.
  *= require reset
  *= require_self
+ *= require formtastic
+ *= require_tree .
  *= require vendor
+ *= require_tree ../../cells
 */

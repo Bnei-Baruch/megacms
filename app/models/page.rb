@@ -38,7 +38,7 @@ class Page < ActiveRecord::Base
                     :default_style => :normal,
                     :convert_options => {:all => "-strip -colorspace rgb"},
                     :url => "/files/pages/images/:id/:filename",
-                    :path => ":rails_root/public/files/pages/images/:id/:filename"
+                    :path => ":rails_root/public/files/pages/images/:id_:filename"
 
 
   # handling delete in your model, if needed.
