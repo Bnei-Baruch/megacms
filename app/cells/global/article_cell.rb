@@ -12,7 +12,8 @@ class Global::ArticleCell < Global::WidgetCell
     render :layout => nil
   end
 
-  def update
+  def update(args = {})
+    super
     article_id = params[:article][:id].present? ? params[:article][:id] : nil
 
     if article_id # Edit mode

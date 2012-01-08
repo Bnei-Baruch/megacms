@@ -6,6 +6,10 @@ class Global::WidgetCell < Cell::Rails
     set_args(args)
   end
 
+  def update(args = {})
+    set_args(args)
+  end
+
   def display(args = {})
     set_args(args)
   end

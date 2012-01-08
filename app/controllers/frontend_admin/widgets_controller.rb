@@ -29,7 +29,7 @@ class FrontendAdmin::WidgetsController < ApplicationController
   def update
     widget = Widget.find params[:id]
     widget_type = widget.cell_class
-    cell = render_cell(widget_type, :update, :widget => widget, :site => @site, :page => @page)
+    cell = render_cell widget_type, :update, :widget => widget, :site => @site, :page => widget.page
     if cell == true
       redirect_to page_path(widget.page)
     else
