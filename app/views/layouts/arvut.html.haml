@@ -1,7 +1,13 @@
+- content_for :css do
+  = stylesheet_link_tag 'arvut'
+- content_for :js do
+  = javascript_include_tag 'arvut'
 - content_for :theme do
   = yield
-  #navigation(style="width:28%; min-height: 100px; padding: 0 1%; float: left;")
-    = placeholder(:page, :content1)
-    = placeholder(:page, :content2)
+  = placeholder(:page, :header)
+  = placeholder(:page, :left_column)
+  = placeholder(:page, :middle)
+  = placeholder(:page, :right_column)
+  = placeholder(:page, :bottom)
 
 = render :template => 'layouts/application'

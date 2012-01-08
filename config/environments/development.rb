@@ -26,4 +26,3 @@ Megacms::Application.configure do
   config.assets.compress = false
 
 end
-Paperclip.options[:command_path]='/usr/local/Cellar/imagemagick/6.6.9-4/bin'

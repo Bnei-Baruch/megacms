@@ -21,6 +21,9 @@ module PagesHelper
   # @param name [symbol] Name (id) for placeholder
   def placeholder(type, name)
     content = content_for name
+    if current_user
+      content = "<li class='h-title'>#{name}</li>#{content}".html_safe
+    end
     content_tag :ul, content, :id => name, :class => "placeholder_#{type.to_s}", :style => 'min-height: 100px;'
   end
 end

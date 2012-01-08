@@ -1,26 +1,27 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 3.1.0'
-gem 'rake'#, '0.8.7'
+gem 'rails'
+gem 'rake'
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
 gem 'devise' # Devise must be required before RailsAdmin
 gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
-gem 'ckeditor', :git => 'git://github.com/pshoukry/ckeditor.git'#, "~> 3.6.0"
+gem 'ckeditor'
 gem "paperclip"
 gem "acts_as_tree"
 gem "cells"
 gem "haml"
 gem 'formtastic'
+gem 'bootstrap-sass', '~> 1.4.3'
 
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails'#, "~> 3.1.0.rc"
-  gem 'coffee-rails'#, "~> 3.1.0.rc"
+  gem 'sass-rails'
+  gem 'coffee-rails'
   gem 'uglifier'
 end
 
