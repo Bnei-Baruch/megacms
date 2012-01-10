@@ -8,7 +8,7 @@ class Global::ArticleCell < Global::WidgetCell
 
   def edit(args = {})
     super
-    @article = @widget.content_assets.try(:first).try(:resource) || Article.new
+    @article = @widget.content_assets.try(:first).try(:resource) || ::Article.new
     render :layout => nil
   end
 

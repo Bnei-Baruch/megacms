@@ -2,14 +2,13 @@
  * This is a manifest file that'll automatically include all the stylesheets available in this directory
  * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
  * the top of the compiled file, but it's generally better to create a new file per style scope.
- *= require reset
- *= require_self
  *= require vendor
  *= require_tree .
- *= require formtastic
- *= require formtastic_ie6
- *= require formtastic_ie7
+ *= require_self
 */
+
+@import "bootstrap";
+
 #body {
   ul {
     position: relative;
@@ -21,4 +20,10 @@
       background: rgba(gray, .1%);
     }
   }
+}
+.placeholder_page{
+  border: 1px solid red;
+}
+.placeholder_theme{
+  border: 1px solid blue;
 }

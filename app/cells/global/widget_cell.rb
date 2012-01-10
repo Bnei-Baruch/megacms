@@ -22,8 +22,4 @@ class Global::WidgetCell < Cell::Rails
     @site = args[:site]
   end
 
-  def request
-    @controller.request
-  end
-
 end

@@ -1,13 +1,19 @@
 - content_for :css do
   = stylesheet_link_tag 'arvut'
+
 - content_for :js do
   = javascript_include_tag 'arvut'
+
 - content_for :theme do
   = yield
-  = placeholder(:page, :header)
-  = placeholder(:page, :left_column)
-  = placeholder(:page, :middle)
-  = placeholder(:page, :right_column)
-  = placeholder(:page, :bottom)
+  .container
+    .row
+      .span20= placeholder(:page, :header)
+    .row
+      .span5= placeholder(:page, :left_column)
+      .span10= placeholder(:page, :middle)
+      .span5= placeholder(:page, :right_column)
+    .row
+      .span20= placeholder(:page, :bottom)
 
 = render :template => 'layouts/application'

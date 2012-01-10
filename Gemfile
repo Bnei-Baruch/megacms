@@ -1,4 +1,4 @@
-source 'http://rubygems.org'
+source :rubygems
 
 gem 'rails'
 gem 'rake'
@@ -8,12 +8,13 @@ gem 'rake'
 gem 'pg'
 gem 'devise' # Devise must be required before RailsAdmin
 gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
-gem 'ckeditor'
+gem 'ckeditor', :git => 'git://github.com/galetahub/ckeditor.git', :branch => 'master'
 gem "paperclip"
 gem "acts_as_tree"
 gem "cells"
 gem "haml"
-gem 'formtastic'
+#gem 'formtastic'
+gem 'formtastic-bootstrap'
 gem 'bootstrap-sass', '~> 1.4.3'
 
 

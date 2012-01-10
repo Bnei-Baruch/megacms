@@ -12,17 +12,19 @@
       = stylesheet_link_tag 'ie6'
     /[if IE 7]
       = stylesheet_link_tag 'ie7'
+    = javascript_include_tag "application"
+
     - if content_for?(:css)
       = yield :css
-    - if current_user
-      = javascript_include_tag "/javascripts/ckeditor/ckeditor", "frontend_admin/frontend_admin"
     - if content_for?(:js)
       = yield :js
     = csrf_meta_tags
     - if content_for?(:meta_description)
       %meta{'name' => 'description', :content => yield(:meta_description)}/
     = yield :header
-  %body
-    #body
-      = content_for?(:theme) ? yield(:theme) : yield
-      = yield :admin_bar
+    - if current_user
+      = javascript_include_tag "/javascripts/ckeditor/ckeditor", "frontend_admin/frontend_admin"
+  %body#body
+    = content_for?(:theme) ? yield(:theme) : yield
+    - if current_user
+      = yield :admin_bar_4_pages

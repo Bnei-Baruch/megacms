@@ -14,7 +14,6 @@ class FrontendAdmin::WidgetsController < ApplicationController
     @reg_id = params[:reg_id]
 
     # dropped from list of registered widgets
-    @registered_widget = RegisteredWidget.find(@reg_id)
     @widget = Widget.create(:page_id => @page_id, :placeholder => @placeholder, :registered_widget_id => @reg_id, :position => 0)
   end
 
@@ -23,7 +22,7 @@ class FrontendAdmin::WidgetsController < ApplicationController
     widget_type = widget.cell_class
 
     @cell_opts = {:widget_options => {:widget => widget, :site => @site, :page => @page, :controller => self}, :state => :edit, :widget_type => widget_type}
-    render :layout => 'application'
+    render :layout => 'admin'
   end
 
   def update

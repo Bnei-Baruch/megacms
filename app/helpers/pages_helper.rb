@@ -24,6 +24,20 @@ module PagesHelper
     if current_user
       content = "<li class='h-title'>#{name}</li>#{content}".html_safe
     end
-    content_tag :ul, content, :id => name, :class => "placeholder_#{type.to_s}", :style => 'min-height: 100px;'
+    content_tag :ul, content, :id => name, :class => "unstyled placeholder_#{type.to_s}", :style => 'min-height: 100px;'
+  end
+
+  def request_admin_bar_4_pages(page)
+    content_for :admin_bar_4_pages do
+      javascript_tag do
+        <<-JS
+        $(document).ready(function() {
+          $.get('#{frontend_admin_admin_bar_path(page)}', function(data){
+            $('body').prepend(data);
+          })
+        });
+        JS
+      end
+    end
   end
 end

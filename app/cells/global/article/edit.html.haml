@@ -1,12 +1,16 @@
+%h2 Article
 = semantic_form_for(@article, :url => frontend_admin_widget_path(@widget), :method => :put) do |form|
+  = form.semantic_errors
   = form.inputs do
-    = form.input :id, :as => :hidden
-    = form.input :title
-    = form.input :subtitle
-    = form.input :description
-    = form.input :image, :as => :file
-    = form.input :author
-    = form.input :publication_date, :as => :string
+    = form.input :id, :as => :hidden, :label => false
+    = form.input :title, :input_html => {:class => 'span12'}
+    = form.input :subtitle, :input_html => {:class => 'span12'}
+    = form.input :description, :input_html => {:class => 'span12'}
+    = form.input :image, :as => :file, :input_html => {:class => 'span12'}
+    = form.input :author, :input_html => {:class => 'span12'}
+    = form.input :publication_date, :as => :string, :input_html => {:class => 'span12'}
     = form.input :body, :as => :ckeditor
-    = form.input :source
-  = form.buttons
+    = form.input :source, :input_html => {:class => 'span12'}
+  = form.buttons do
+    = form.commit_button :button_html => {:class => "primary"}
+    = link_to :cancel, :back, :class => 'btn'
