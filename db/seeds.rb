@@ -6,7 +6,8 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-['article'].each do |reg_widget|
+puts 'Register widgets...'
+['article', 'pages_preview', 'banner', 'block', 'kabtv', 'media_rss', 'newsletter', 'rss', 'title', 'video', 'iframe'].each do |reg_widget|
   RegisteredWidget.find_or_create_by_system_name(reg_widget)
 end
 

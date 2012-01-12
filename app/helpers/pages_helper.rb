@@ -19,12 +19,17 @@ module PagesHelper
   # Render placeholder (with widgets if exist)
   # @param type [:page, :theme] Layout for this page only or for every pages that use this theme
   # @param name [symbol] Name (id) for placeholder
-  def placeholder(type, name)
-    content = content_for name
-    if current_user
-      content = "<li class='h-title'>#{name}</li>#{content}".html_safe
+  # @param block [] Possible block to be evaluated <em>Before</em> widgets
+  def placeholder(type, name, &block)
+    content = content_for(name)
+    content = "<li class='h-title'>#{name}</li>#{content}".html_safe if current_user
+
+    capture_haml do
+      haml_tag :ul, {:id => name, :class => "unstyled placeholder_#{type.to_s}", :style => 'min-height: 100px;'} do
+        haml_concat capture_haml(&block) if block_given?
+        haml_concat content
+      end
     end
-    content_tag :ul, content, :id => name, :class => "unstyled placeholder_#{type.to_s}", :style => 'min-height: 100px;'
   end
 
   def request_admin_bar_4_pages(page)

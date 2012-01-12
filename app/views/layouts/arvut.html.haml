@@ -11,8 +11,12 @@
       .span20= placeholder(:page, :header)
     .row
       .span5= placeholder(:page, :left_column)
-      .span10= placeholder(:page, :middle)
-      .span5= placeholder(:page, :right_column)
+      .span10
+        = placeholder(:page, :middle) do
+          .h1 המומלצים
+      .span5
+        = placeholder(:page, :right_column) do
+          .h1 שיעור הקבלה היומי
     .row
       .span20= placeholder(:page, :bottom)
 
