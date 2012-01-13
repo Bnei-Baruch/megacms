@@ -39,8 +39,36 @@
           background: url(http://www.kab.co.il/images/hebmain/video.png) no-repeat 0 0;
         }
       }
-      &.even {
+      &:nth-child(even) {
         background-color: #F7F8FC;
+      }
+    }
+    .main2 {
+      .element {
+        position: relative;
+        float: right;
+        width: 48%;
+        &:nth-child(odd) {
+          margin-left: 4%;
+        }
+        .image {
+          margin: 0 0 10px;
+        }
+      }
+    }
+    .main3 {
+      .element {
+        position: relative;
+        float: right;
+        width: 30%;
+        &:nth-child(-n+2) {
+          padding-left: 2%;
+          margin-left: 2%;
+          border-left: 1px dashed #E5E5E5;
+        }
+        .image {
+          margin: 0 0 10px;
+        }
       }
     }
   }
