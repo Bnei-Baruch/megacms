@@ -1,0 +1,98 @@
+/*
+ * This is a manifest file that'll automatically include all the stylesheets available in this directory
+ * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+ * the top of the compiled file, but it's generally better to create a new file per style scope.
+ *= require_self
+*/
+$gridColumns: 20;
+$gridColumnWidth: 40px;
+$gridGutterWidth: 10px;
+
+@import "bootstrap";
+
+@mixin sans-serif-font($weight: normal, $size: 14px, $lineHeight: 20px) {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: $size;
+  font-weight: $weight;
+  line-height: $lineHeight;
+}
+
+<%=
+    # Load css for registered widgets
+    # First try local widgets, aterwards - global ones
+    local = 'arvut'
+    global = 'global'
+    RegisteredWidget.all.map do |widget|
+        name = widget.system_name
+        file_part = "#{name}/#{name}"
+        if File.exist? File.join(Rails.root, "app/cells/#{local}", "#{file_part}.css.scss")
+            "@import '../../cells/#{local}/#{file_part}';"
+        elsif File.exist? File.join(Rails.root, "app/cells/#{global}", "#{file_part}.css.scss")
+            "@import '../../cells/#{global}/#{file_part}';"
+        end
+    end.join
+%>
+
+body {
+  @include sans-serif-font;
+  direction: rtl;
+  unicode-bidi: bidi-override;
+}
+
+a, a:visited {
+  color: #186BE5;
+  text-decoration: none;
+  &:hover {
+      text-decoration: underline;
+  }
+}
+
+.clb {
+  clear: both;
+  height: 1px;
+  line-height: 1px;
+  font-size: 1px;
+}
+
+#header {
+
+}
+
+#left_column {
+
+}
+
+#middle {
+  color: black;
+  .h1 {
+    @include title-h1;
+  }
+  @include pages_preview(index, right, 138px, 94px);
+  @include pages_preview(main1, left, 237px, 161px);
+}
+
+#right_column {
+  .h1 {
+    @include title-h1(#90AEDE);
+  }                                        
+  .banner {
+    width:178px;
+    height:45px;
+    a {
+      display: block;
+      img {
+        width:178px;
+        height:45px;
+        background-position: 0 0;
+        background-repeat: no-repeat;
+      }
+      &:hover img {
+        background-position: left bottom !important;
+      }
+    }
+  }
+}
+
+#bottom {
+
+}

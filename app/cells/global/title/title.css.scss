@@ -1,0 +1,12 @@
+@mixin title-h1($bgcolor: #3864B5, $color: white) {
+  @include border-radius(10px 10px 0 0);
+  color: $color;
+  background-color: $bgcolor;
+  font-size: 18px;
+  height: 30px;
+  line-height: 30px;
+  margin: 0;
+  padding: 0 10px 0 0;
+  position: relative;
+  text-align: right;
+}

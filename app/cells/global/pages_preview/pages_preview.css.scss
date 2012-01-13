@@ -1,0 +1,47 @@
+@mixin pages_preview($content_type: main1, $image-float: left, $image-width: 100px, $image-height: 100px) {
+  $image-right-offset: 0;
+  .pages_preview {
+    .#{$content_type} {
+      position: relative;
+      clear: both;
+      padding-top: 10px;
+      .image {
+        float: $image-float;
+        @if $image-float == 'left' {
+          margin: 0 10px 10px 0;
+        } @else {
+          $image-right-offset: $image-width + 10px;
+          margin: 0 0 10px 10px;
+        }
+        img {
+          width: $image-width;
+          height: $image-height;
+        }
+      }
+      .text {
+        color: #000000;
+        font-size: 12px;
+        position: relative;
+        .title a {
+          font-size: 16px;
+          color: #0D47B2;
+        }
+        .descr {
+          padding: 0 0 20px;
+        }
+      }
+      .more {
+        position: absolute;
+        bottom: 0;
+        right: $image-right-offset;
+        padding: 0 0 0 20px;
+        &.video {
+          background: url(http://www.kab.co.il/images/hebmain/video.png) no-repeat 0 0;
+        }
+      }
+      &.even {
+        background-color: #F7F8FC;
+      }
+    }
+  }
+}
